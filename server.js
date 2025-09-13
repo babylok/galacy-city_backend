@@ -20,6 +20,7 @@ app.use(cors({
     credentials: true // 允许发送凭证
 }));
 
+
 app.use(express.json());
 
 const userDataPath = "./user.json";
