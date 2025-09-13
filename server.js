@@ -7,23 +7,10 @@ import { readJsonFile, writeJsonFile } from './fetchData.js';
 
 const app = express();
 
-const allowedOrigins = [
-    'https://galaxy-city.vercel.app', // 生产环境
-    'http://127.0.0.1:5500',          // 本地调试
-    'http://localhost:5500'            // 另一种本地地址
-];
-
-// CORS配置
 app.use(cors({
-    origin: function (origin, callback) {
-        // 允许没有来源的请求（例如来自 Postman）
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    origin: 'https://galaxy-city.vercel.app', // 允许的来源
+    methods: ['GET', 'POST'], // 允许的请求方法
+    allowedHeaders: ['Content-Type'], // 允许的请求头
     credentials: true // 允许发送凭证
 }));
 app.use(express.json());
