@@ -8,7 +8,7 @@ import { readJsonFile, writeJsonFile } from './fetchData.js';
 const app = express();
 
 app.use(cors({
-    origin: 'https://galaxy-city.vercel.app', // 允许的来源
+    origin: ['https://galaxy-city.vercel.app', "http://127.0.0.1:63490"], // 允许的来源
     methods: ['GET', 'POST'], // 允许的请求方法
     allowedHeaders: ['Content-Type'], // 允许的请求头
     credentials: true // 允许发送凭证
