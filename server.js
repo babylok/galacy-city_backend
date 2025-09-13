@@ -6,19 +6,19 @@ import mongoose from 'mongoose';
 import { readJsonFile, writeJsonFile } from './fetchData.js';
 
 const app = express();
-//app.use(cors());
+app.use(cors());
 // app.use(cors({
 //     origin: "*", // 允许的来源
 //     methods: ['GET', 'POST'], // 允许的请求方法
 //     allowedHeaders: ['Content-Type'], // 允许的请求头
 //     credentials: true // 允许发送凭证
 // }));
-app.use(cors({
-    origin: ['https://galaxy-city.vercel.app', 'http://127.0.0.1:51516'], // 允许的来源
-    methods: ['GET', 'POST', 'OPTIONS'], // 允许的请求方法
-    allowedHeaders: ['Content-Type'], // 允许的请求头
-    credentials: true // 允许发送凭证
-}));
+// app.use(cors({
+//     origin: ['https://galaxy-city.vercel.app', 'http://127.0.0.1:51516'], // 允许的来源
+//     methods: ['GET', 'POST', 'OPTIONS'], // 允许的请求方法
+//     allowedHeaders: ['Content-Type'], // 允许的请求头
+//     credentials: true // 允许发送凭证
+// }));
 
 
 app.use(express.json());
