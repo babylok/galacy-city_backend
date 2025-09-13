@@ -8,6 +8,7 @@ import {createUser,findUser, readJsonFile, writeJsonFile } from './fetchData.js'
 
 const app = express();
 app.use(cors());
+
 // app.use(cors({
 //     origin: "*", // 允许的来源
 //     methods: ['GET', 'POST'], // 允许的请求方法
