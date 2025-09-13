@@ -2,8 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import mongoose from 'mongoose';
-import { readJsonFile, writeJsonFile } from './fetchData.js';
+
+import {createUser,findUser, readJsonFile, writeJsonFile } from './fetchData.js';
+
 
 const app = express();
 app.use(cors());
@@ -43,7 +44,7 @@ app.post("/addproducthistroy", async (req, res) => {
     const newData = req.body;
     const data = await readJsonFile(buyHistoryDataPath);
     data.push(newData);
-    console.log(data);
+    //console.log(data);
     await writeJsonFile(buyHistoryDataPath, JSON.stringify(data));
     res.json({ message: "save success" })
 
@@ -51,13 +52,15 @@ app.post("/addproducthistroy", async (req, res) => {
 //reg user
 app.post("/reg", async (req, res) => {
     const newData = req.body;
-    const data = await readJsonFile(userDataPath);
+    const data = await findUser();
+    
     if (data.findIndex(d => d.name.toLowerCase() === newData.name.toLowerCase()) === -1) {
         data.push(newData);
-        console.log(data);
-        await writeJsonFile(userDataPath, JSON.stringify(data));
+       // console.log(data);
+        await createUser(data);
         res.json({ message: "save success" })
     } else {
+        console.log("exist")
         res.json({ message: "existing user" })
     }
 
@@ -65,7 +68,7 @@ app.post("/reg", async (req, res) => {
 //login
 app.post("/login", async (req, res) => {
     const user = req.body;
-    const userData = await readJsonFile(userDataPath);
+    const userData = await findUser();
     const existUser = userData.find(u => u.name === user.name);
     if (existUser && existUser.password == existUser.password) {
         res.json({"message":"login success"})
