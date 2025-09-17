@@ -71,7 +71,7 @@ app.post("/login", async (req, res) => {
     const user = req.body;
     const userData = await findUser();
     const existUser = userData.find(u => u.name === user.name);
-    if (existUser && existUser.password == existUser.password) {
+    if (existUser && existUser.password === existUser.password) {
         res.json({"name":existUser.name,"email":existUser.email})
 
     }
