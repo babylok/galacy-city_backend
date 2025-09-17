@@ -59,7 +59,7 @@ app.post("/reg", async (req, res) => {
         data.push(newData);
        // console.log(data);
         await createUser(data);
-        res.json({ message: "save success" })
+        res.json({"name":newData.name,"email":newData.email})
     } else {
         console.log("exist")
         res.json({ message: "existing user" })
