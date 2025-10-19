@@ -30,12 +30,17 @@ async function findUser() {
   
     let data = [];
    
-    data = await GalaxyUser.find().catch(error => console.error("Erro find data:", error));
+    data = await GalaxyUser.find();
 
     
     return data;
    
 }
+
+
+async function editUser(user,data){
+    await GalaxyUser.findOneAndUpdate(user, data);
+}   
 
 
 async function readJsonFile(dataPath) {
@@ -47,4 +52,10 @@ async function writeJsonFile(datapath, data) {
     return await fs.writeFile(datapath, data);
 }
 
-export {createUser,findUser, readJsonFile, writeJsonFile }
+//const ty1=await readJsonFile("./beds/BEDS_VHCLCLASS_EXAMCODE_TY1.json");
+//const ty2=await readJsonFile("./beds/BEDS_VHCLCLASS_EXAMCODE_TYG.json");
+//console.log(JSON.stringify(ty1))
+//await writeJsonFile("./beds/ty1.json",JSON.stringify(ty1));
+//await writeJsonFile("./beds/ty2.json",JSON.stringify(ty2));
+
+export {createUser,findUser,editUser, readJsonFile, writeJsonFile }

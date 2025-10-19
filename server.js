@@ -3,7 +3,7 @@ import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-import {createUser,findUser, readJsonFile, writeJsonFile } from './fetchData.js';
+import { createUser, findUser, editUser, readJsonFile, writeJsonFile } from './fetchData.js';
 
 
 const app = express();
@@ -54,12 +54,12 @@ app.post("/addproducthistroy", async (req, res) => {
 app.post("/reg", async (req, res) => {
     const newData = req.body;
     const data = await findUser();
-    
+
     if (data.findIndex(d => d.name.toLowerCase() === newData.name.toLowerCase()) === -1) {
         data.push(newData);
-       // console.log(data);
+        // console.log(data);
         await createUser(data);
-        res.json({"name":newData.name,"email":newData.email})
+        res.json({ "name": newData.name, "email": newData.email })
     } else {
         console.log("exist")
         res.json({ message: "existing user" })
@@ -72,12 +72,26 @@ app.post("/login", async (req, res) => {
     const userData = await findUser();
     const existUser = userData.find(u => u.name === user.name);
     if (existUser && existUser.password === user.password) {
-        res.json({"name":existUser.name,"email":existUser.email})
+        res.json({ "name": existUser.name, "email": existUser.email })
 
     }
     else {
         res.send("login failed");
     }
+})
+
+
+app.post("/updateUser", async (req, res) => {
+
+    const userData = req.body;
+    try {
+        await editUser({"name":userData.name}, userData)
+        res.json(userData);
+    } catch (e) {
+        console.log(e)
+        res.send('edit fail')
+    }
+
 })
 
 app.listen(8080, () => {
